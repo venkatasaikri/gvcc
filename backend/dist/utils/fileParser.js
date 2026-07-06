@@ -14,12 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.parseFileContent = void 0;
 const fs_1 = __importDefault(require("fs"));
-const pdf_parse_1 = __importDefault(require("pdf-parse"));
+const pdfParse = require('pdf-parse');
 const parseFileContent = (filePath, mimeType) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         if (mimeType === 'application/pdf') {
             const dataBuffer = fs_1.default.readFileSync(filePath);
-            const data = yield (0, pdf_parse_1.default)(dataBuffer);
+            const data = yield pdfParse(dataBuffer);
             return data.text;
         }
         else if (mimeType === 'text/plain' || mimeType === 'text/markdown') {

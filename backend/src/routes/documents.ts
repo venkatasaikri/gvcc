@@ -23,7 +23,11 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage,
   fileFilter: (req, file, cb) => {
-    if (file.mimetype === 'application/pdf' || file.mimetype === 'text/plain' || file.mimetype === 'text/markdown') {
+    const isPDF = file.mimetype === 'application/pdf' || file.originalname.endsWith('.pdf');
+    const isText = file.mimetype === 'text/plain' || file.originalname.endsWith('.txt');
+    const isMarkdown = file.mimetype === 'text/markdown' || file.originalname.endsWith('.md') || file.mimetype === 'application/octet-stream';
+    
+    if (isPDF || isText || isMarkdown) {
       cb(null, true);
     } else {
       cb(new Error('Unsupported file format'));

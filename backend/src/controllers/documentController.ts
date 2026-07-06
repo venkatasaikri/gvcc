@@ -15,7 +15,7 @@ export const uploadDocument = async (req: AuthRequest, res: Response) => {
     const userId = req.user._id;
 
     // Parse content
-    const content = await parseFileContent(filePath, mimetype);
+    const content = await parseFileContent(filePath, mimetype, originalname);
 
     const document = await Document.create({
       name: originalname,
