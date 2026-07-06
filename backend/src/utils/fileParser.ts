@@ -1,5 +1,5 @@
 import fs from 'fs';
-import pdfParse from 'pdf-parse';
+import pdfParse from 'pdf-parse-new';
 
 export const parseFileContent = async (filePath: string, mimeType: string, originalName: string = ''): Promise<string> => {
   try {
