@@ -1,0 +1,31 @@
+services:
+  # Backend Node.js Service
+  - type: web
+    name: gvcc-backend
+    env: node
+    rootDir: backend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: MONGO_URI
+        sync: false # Requires manual entry in Render Dashboard
+      - key: JWT_SECRET
+        generateValue: true # Render will generate a strong secret automatically
+      - key: GEMINI_API_KEY
+        sync: false # Requires manual entry in Render Dashboard
+
+  # Frontend React/Vite Static Site
+  - type: web
+    name: gvcc-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: gvcc-backend
+          envVarKey: RENDER_EXTERNAL_URL
